@@ -1,0 +1,16 @@
+spring:
+  main:
+    banner-mode: off
+  http:
+    clients:
+      connect-timeout: 1s
+      read-timeout: 1s
+logging:
+  level:
+    root: warn
+    org.springframework.boot.web.embedded.tomcat: info
+    server.monitor.backend: info
+server-monitor:
+    http-key: "mykey"
+server:
+  port: 3001
