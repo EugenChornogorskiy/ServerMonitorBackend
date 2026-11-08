@@ -13,7 +13,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 @WebMvcTest(RestClient.class)
-@Import(Printer.class)
+@Import({Printer.class,TaskManager.class})
 class RestTest {
 
     @Autowired
