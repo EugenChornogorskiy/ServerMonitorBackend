@@ -5,6 +5,10 @@ spring:
     clients:
       connect-timeout: 1s
       read-timeout: 1s
+  datasource:
+    url: jdbc:postgresql://localhost:5432/ServerMonitor
+    username: postgres
+    password: 1777
 logging:
   level:
     root: warn
@@ -14,3 +18,5 @@ server-monitor:
     http-key: "mykey"
 server:
   port: 3001
+claim:
+  timeout-minutes: 1

@@ -1,4 +1,4 @@
-package server.monitor.backend;
+package server.monitor.backend.player;
 
 import org.springframework.stereotype.Component;
 

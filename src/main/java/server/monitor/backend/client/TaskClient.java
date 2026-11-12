@@ -1,35 +1,35 @@
-package server.monitor.backend;
+package server.monitor.backend.client;
 
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import server.monitor.backend.Printer;
+import server.monitor.backend.player.Player;
+import server.monitor.backend.player.Players;
+import server.monitor.backend.task.Task;
+import server.monitor.backend.task.TaskManager;
 
-import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/api")
-public class RestClient {
+@RequestMapping("/api/task")
+public class TaskClient {
     public Printer printer;
     public TaskManager taskManager;
-    public RestClient(Printer printer, TaskManager taskManager) {
+    public TaskClient(Printer printer, TaskManager taskManager) {
         this.taskManager = taskManager;
         this.printer = printer;
     }
-
-    @PostMapping("/set/players")
-    public TasksResponse players(@RequestBody Map<UUID, Player> body) {
-        System.out.println("REQUEST RECEIVED, players: " + body.size());
-        Players.convert(body);
-        printer.printPlayers();
-        return new TasksResponse(taskManager.getTasks());
-    }
-    @PostMapping("/set/task")
+    @PostMapping("/set")
     public void taskRecieve(@RequestBody TaskRecieved body) {
         System.out.println("TASKS RECEIVED, players: " + body.toString());
         taskManager.addTask(body);
         printer.printPlayers();
     }
-    @PostMapping("/command/status")
+
+    @PostMapping("/status")
     public void taskStatus(@RequestBody TaskStatus body) {
         System.out.println("TASKSTATUS RECEIVED, players: " + body.toString());
         if (body.success()) {
@@ -37,8 +37,8 @@ public class RestClient {
         }
         printer.printPlayers();
     }
+
     public record TaskRecieved(String type, UUID player_id, Map<String,String> arguments) {
     }
-    public record TasksResponse(Map<UUID, Task> tasks) {}
     public record TaskStatus(UUID id, boolean success) {}
 }
