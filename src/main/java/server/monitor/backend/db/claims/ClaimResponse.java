@@ -5,4 +5,4 @@ import server.monitor.backend.services.ClaimService;
 
 import java.util.List;
 
-public record ClaimResponse(Long claim_id, List<ClaimService.ItemToSend> items) {}
+public record ClaimResponse(Long id, List<ClaimService.ItemToSend> items) {}

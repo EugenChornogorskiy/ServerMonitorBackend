@@ -42,7 +42,7 @@ public class PlayerClient {
         System.out.println("AUTHORIZE PLAYER RECEIVED, players: " + body.toString());
         Optional<User> user = userRepository.findByCode(body.code());
         if (user.isPresent()) {
-            user.get().setPlayer_id(body.id());
+            user.get().setPlayerId(body.id());
             userRepository.save(user.get());
             return true;
         }

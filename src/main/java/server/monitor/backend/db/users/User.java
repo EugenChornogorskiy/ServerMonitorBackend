@@ -10,7 +10,8 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private UUID player_id;
+    @Column(name = "player_id", unique = true)
+    private UUID playerId;
     private Long money_spend;
     private String nickname;
     private String email;
@@ -32,12 +33,12 @@ public class User {
         this.id = id;
     }
 
-    public UUID getPlayer_id() {
-        return player_id;
+    public UUID getPlayerId() {
+        return playerId;
     }
 
-    public void setPlayer_id(UUID player_id) {
-        this.player_id = player_id;
+    public void setPlayerId(UUID player_id) {
+        this.playerId = player_id;
     }
 
     public String getNickname() {

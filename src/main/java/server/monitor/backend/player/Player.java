@@ -8,5 +8,5 @@ public record Player(UUID id, String nickname, LocalDateTime joinTime, Position 
 
     public record Position(double x, double y, double z) {
     }
-    public record PlayerItem(int position, String name, int count) {}
+    public record PlayerItem(int position, String material, int amount) {}
 }

@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import server.monitor.backend.db.products.Product;
 import server.monitor.backend.db.users.User;
 
+import java.time.Instant;
 import java.time.LocalDateTime;
 
 @Entity
@@ -24,9 +25,9 @@ public class Purchase {
     @Enumerated(EnumType.STRING)
     private PurchaseStatus status;
 
-    private LocalDateTime claimed_at;
-    private LocalDateTime opened_at;
-    private LocalDateTime closed_at;
+    private Instant claimed_at;
+    private Instant opened_at;
+    private Instant closed_at;
     private String code;
 
     public PurchaseStatus getStatus() {
@@ -57,27 +58,27 @@ public class Purchase {
         this.product = product;
     }
 
-    public LocalDateTime getClaimed_at() {
+    public Instant getClaimed_at() {
         return claimed_at;
     }
 
-    public void setClaimed_at(LocalDateTime claimed_at) {
+    public void setClaimed_at(Instant claimed_at) {
         this.claimed_at = claimed_at;
     }
 
-    public LocalDateTime getOpened_at() {
+    public Instant getOpened_at() {
         return opened_at;
     }
 
-    public void setOpened_at(LocalDateTime opened_at) {
+    public void setOpened_at(Instant opened_at) {
         this.opened_at = opened_at;
     }
 
-    public LocalDateTime getClosed_at() {
+    public Instant getClosed_at() {
         return closed_at;
     }
 
-    public void setClosed_at(LocalDateTime closed_at) {
+    public void setClosed_at(Instant closed_at) {
         this.closed_at = closed_at;
     }
 

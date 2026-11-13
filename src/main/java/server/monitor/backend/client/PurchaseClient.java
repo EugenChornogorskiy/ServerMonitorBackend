@@ -8,6 +8,8 @@ import server.monitor.backend.db.users.UserRepository;
 import server.monitor.backend.services.ClaimService;
 import server.monitor.backend.task.TaskManager;
 
+import java.util.UUID;
+
 @RestController
 @RequestMapping("/api/purchase")
 public class PurchaseClient {
@@ -23,14 +25,20 @@ public class PurchaseClient {
     }
 
     @GetMapping("/get")
-    public ClaimResponse getPurchase(@RequestBody ClaimRequest body) {
-        System.out.println("GET PURCHASE RECEIVED, body: " + body.toString());
-        return claimService.claim(body);
+    public ClaimResponse getPurchase(@RequestParam UUID id, @RequestParam String code) {
+        System.out.println("GET PURCHASE RECEIVED, id: " + id + ", code: " + code);
+        return claimService.claim(new ClaimRequest(id, code));
     }
     @PostMapping("/close")
-    public void closePurchase(@RequestBody Long body) {
+    public void closePurchase(@RequestBody ClosePurchase body) {
         System.out.println("CLAIM CLOSE RECEIVED, body: " + body.toString());
         claimService.close(body);
+    }
+    public record ClosePurchase(CloseStatus status, Long id){
+        public enum CloseStatus {
+            SUCCESS,
+            FAILURE
+        }
     }
 
 }

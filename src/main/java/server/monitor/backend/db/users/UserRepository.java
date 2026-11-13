@@ -9,5 +9,5 @@ import java.util.UUID;
 @Component
 public interface UserRepository extends JpaRepository<User, Long> {
     Optional<User> findByCode(String code);
-    Optional<User> findByPlayer_id(UUID id);
+    Optional<User> findByPlayerId(UUID id);
 }

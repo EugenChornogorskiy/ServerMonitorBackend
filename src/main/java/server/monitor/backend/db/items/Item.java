@@ -17,6 +17,8 @@ public class Item {
 
     private String material;
     private int amount;
+    private String description;
+    private String item_name;
 
     public Long getId() {
         return id;

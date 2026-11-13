@@ -18,14 +18,10 @@ public class Product {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "product_id")
-    private Product product;
-
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Item> items = new ArrayList<>();
 
-    private long cost;
+    private long price;
 
     public Long getId() {
         return id;
@@ -43,20 +39,12 @@ public class Product {
         this.user = user;
     }
 
-    public Product getProduct() {
-        return product;
+    public long getPrice() {
+        return price;
     }
 
-    public void setProduct(Product product) {
-        this.product = product;
-    }
-
-    public long getCost() {
-        return cost;
-    }
-
-    public void setCost(long cost) {
-        this.cost = cost;
+    public void setPrice(long price) {
+        this.price = price;
     }
 
     public List<Item> getItems() {
