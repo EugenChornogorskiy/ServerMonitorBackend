@@ -11,6 +11,7 @@ version = '0.2'
 publishing {
     publications {
         gpr(MavenPublication) {
+            artifactId = 'server-monitor-backend'
             from components.java
         }
     }
