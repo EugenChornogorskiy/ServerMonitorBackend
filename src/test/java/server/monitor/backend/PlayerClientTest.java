@@ -51,7 +51,7 @@ class PlayerClientTest {
                     "nickname": "Riven1777",
                     "joinTime": "2026-11-06T19:35:19",
                     "position": {"x": 1.38, "y": 76.0, "z": 11.47},
-                    "inventory": [{"position": 0, "name": "OAK_LOG", "count": 1}],
+                    "inventory": [{"position": 0, "material": "OAK_LOG", "amount": 1}],
                     "kills": 0,
                     "deaths": 1
                   }
