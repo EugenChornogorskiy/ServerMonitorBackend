@@ -45,7 +45,7 @@ tasks.named('test') {
         events 'passed', 'failed'
     }
     finalizedBy jacocoTestReport
-}
+}git update-index --chmod=+x gradlew
 tasks.named('jacocoTestReport') {
     dependsOn test
     reports {

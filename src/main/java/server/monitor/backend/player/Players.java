@@ -2,14 +2,12 @@ package server.monitor.backend.player;
 
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Component
 public class Players {
-    private static List<Player> players;
+    private static List<Player> players = Collections.synchronizedList(new ArrayList<>());
 
     public static List<Player> getPlayers() {
         return List.copyOf(players);
