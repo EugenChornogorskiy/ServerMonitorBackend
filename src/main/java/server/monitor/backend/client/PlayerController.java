@@ -2,29 +2,24 @@ package server.monitor.backend.client;
 
 import org.springframework.web.bind.annotation.*;
 import server.monitor.backend.*;
-import server.monitor.backend.db.claims.ClaimRequest;
-import server.monitor.backend.db.claims.ClaimResponse;
-import server.monitor.backend.db.items.Item;
 import server.monitor.backend.db.users.User;
 import server.monitor.backend.db.users.UserRepository;
 import server.monitor.backend.player.Player;
 import server.monitor.backend.player.Players;
-import server.monitor.backend.services.ClaimService;
 import server.monitor.backend.task.Task;
 import server.monitor.backend.task.TaskManager;
 
-import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/player")
-public class PlayerClient {
+public class PlayerController {
     public Printer printer;
     public TaskManager taskManager;
     private final UserRepository userRepository;
-    public PlayerClient(Printer printer, TaskManager taskManager,UserRepository userRepository) {
+    public PlayerController(Printer printer, TaskManager taskManager, UserRepository userRepository) {
         this.taskManager = taskManager;
         this.printer = printer;
         this.userRepository = userRepository;

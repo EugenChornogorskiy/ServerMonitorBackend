@@ -30,6 +30,17 @@ public class Purchase {
     private Instant closed_at;
     private String code;
 
+    public Purchase(Long id, User user, Product product, server.monitor.backend.db.purchases.Purchase.PurchaseStatus status, Instant claimed_at, Instant opened_at, Instant closed_at, String code) {
+        this.id = id;
+        this.user = user;
+        this.product = product;
+        this.status = status;
+        this.claimed_at = claimed_at;
+        this.opened_at = opened_at;
+        this.closed_at = closed_at;
+        this.code = code;
+    }
+
     public PurchaseStatus getStatus() {
         return status;
     }
@@ -42,20 +53,8 @@ public class Purchase {
         this.id = id;
     }
 
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
     public Product getProduct() {
         return product;
-    }
-
-    public void setProduct(Product product) {
-        this.product = product;
     }
 
     public Instant getClaimed_at() {
@@ -66,32 +65,12 @@ public class Purchase {
         this.claimed_at = claimed_at;
     }
 
-    public Instant getOpened_at() {
-        return opened_at;
-    }
-
-    public void setOpened_at(Instant opened_at) {
-        this.opened_at = opened_at;
-    }
-
-    public Instant getClosed_at() {
-        return closed_at;
-    }
-
     public void setClosed_at(Instant closed_at) {
         this.closed_at = closed_at;
     }
 
     public void setStatus(PurchaseStatus status) {
         this.status = status;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
     }
 
     public enum PurchaseStatus {

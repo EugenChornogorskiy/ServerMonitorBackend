@@ -5,9 +5,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import server.monitor.backend.Printer;
-import server.monitor.backend.player.Player;
-import server.monitor.backend.player.Players;
-import server.monitor.backend.task.Task;
 import server.monitor.backend.task.TaskManager;
 
 import java.util.Map;
@@ -15,10 +12,10 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/task")
-public class TaskClient {
+public class TaskController {
     public Printer printer;
     public TaskManager taskManager;
-    public TaskClient(Printer printer, TaskManager taskManager) {
+    public TaskController(Printer printer, TaskManager taskManager) {
         this.taskManager = taskManager;
         this.printer = printer;
     }

@@ -17,12 +17,13 @@ public class User {
     private String email;
     private String code;
 
-    public Long getMoney_spend() {
-        return money_spend;
-    }
-
-    public void setMoney_spend(Long money_spend) {
+    public User(Long id, UUID playerId, Long money_spend, String nickname, String email, String code) {
+        this.id = id;
+        this.playerId = playerId;
         this.money_spend = money_spend;
+        this.nickname = nickname;
+        this.email = email;
+        this.code = code;
     }
 
     public Long getId() {
@@ -41,27 +42,4 @@ public class User {
         this.playerId = player_id;
     }
 
-    public String getNickname() {
-        return nickname;
-    }
-
-    public void setNickname(String nickname) {
-        this.nickname = nickname;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
 }

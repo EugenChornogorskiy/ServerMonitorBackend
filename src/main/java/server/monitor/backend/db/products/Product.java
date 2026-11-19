@@ -23,6 +23,13 @@ public class Product {
 
     private long price;
 
+    public Product(Long id, User user, List<Item> items, long price) {
+        this.id = id;
+        this.user = user;
+        this.price = price;
+        this.items = items;
+    }
+
     public Long getId() {
         return id;
     }
@@ -31,27 +38,8 @@ public class Product {
         this.id = id;
     }
 
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public long getPrice() {
-        return price;
-    }
-
-    public void setPrice(long price) {
-        this.price = price;
-    }
-
     public List<Item> getItems() {
         return items;
     }
 
-    public void setItems(List<Item> items) {
-        this.items = items;
-    }
 }

@@ -20,16 +20,21 @@ public class Item {
     private String description;
     private String item_name;
 
+    public Item(Long id, Product product, String material, int amount, String description, String item_name) {
+        this.id = id;
+        this.product = product;
+        this.material = material;
+        this.amount = amount;
+        this.description = description;
+        this.item_name = item_name;
+    }
+
     public Long getId() {
         return id;
     }
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Product getProduct() {
-        return product;
     }
 
     public void setProduct(Product product) {
@@ -40,15 +45,7 @@ public class Item {
         return material;
     }
 
-    public void setMaterial(String material) {
-        this.material = material;
-    }
-
     public int getAmount() {
         return amount;
-    }
-
-    public void setAmount(int amount) {
-        this.amount = amount;
     }
 }

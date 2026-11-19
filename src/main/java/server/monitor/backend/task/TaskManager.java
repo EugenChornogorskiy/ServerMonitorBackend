@@ -2,8 +2,7 @@ package server.monitor.backend.task;
 
 
 import org.springframework.stereotype.Component;
-import server.monitor.backend.client.PlayerClient;
-import server.monitor.backend.client.TaskClient;
+import server.monitor.backend.client.TaskController;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
@@ -11,7 +10,7 @@ import java.util.concurrent.ConcurrentHashMap;
 @Component
 public class TaskManager {
     private final Map<UUID,Task> tasks = new ConcurrentHashMap<>();
-    public void addTask(TaskClient.TaskRecieved taskRecieved) {
+    public void addTask(TaskController.TaskRecieved taskRecieved) {
         UUID id = UUID.randomUUID();
         tasks.put(id,new Task(Task.Type.valueOf(taskRecieved.type()),id,taskRecieved.player_id(),taskRecieved.arguments()));
     }

@@ -4,7 +4,6 @@ import org.springframework.web.bind.annotation.*;
 import server.monitor.backend.Printer;
 import server.monitor.backend.db.claims.ClaimRequest;
 import server.monitor.backend.db.claims.ClaimResponse;
-import server.monitor.backend.db.users.UserRepository;
 import server.monitor.backend.services.ClaimService;
 import server.monitor.backend.task.TaskManager;
 
@@ -12,15 +11,13 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/purchase")
-public class PurchaseClient {
+public class PurchaseController {
     public Printer printer;
     public TaskManager taskManager;
-    private final UserRepository userRepository;
     private final ClaimService claimService;
-    public PurchaseClient(Printer printer, TaskManager taskManager, UserRepository userRepository, ClaimService claimService) {
+    public PurchaseController(Printer printer, TaskManager taskManager, ClaimService claimService) {
         this.taskManager = taskManager;
         this.printer = printer;
-        this.userRepository = userRepository;
         this.claimService = claimService;
     }
 

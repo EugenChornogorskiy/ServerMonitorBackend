@@ -8,12 +8,9 @@ import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
-import server.monitor.backend.client.PlayerClient;
-import server.monitor.backend.client.TaskClient;
+import server.monitor.backend.client.TaskController;
 import server.monitor.backend.db.purchases.PurchaseRepository;
 import server.monitor.backend.db.users.UserRepository;
-import server.monitor.backend.player.Player;
-import server.monitor.backend.player.Players;
 import server.monitor.backend.task.Task;
 import server.monitor.backend.task.TaskManager;
 
@@ -24,9 +21,9 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebMvcTest(TaskClient.class)
+@WebMvcTest(TaskController.class)
 @Import({Printer.class, TaskManager.class})
-class TaskClientTest {
+class TaskControllerTest {
 
     @MockitoBean
     private UserRepository userRepository;
@@ -90,7 +87,7 @@ class TaskClientTest {
     }
     @Test
     void acceptsTaskStatus() throws Exception {
-        taskManager.addTask(new TaskClient.TaskRecieved("KICK",UUID.fromString("ebeb55c1-bc68-4a92-8eda-3bedeaa6e672"),Map.of()));
+        taskManager.addTask(new TaskController.TaskRecieved("KICK",UUID.fromString("ebeb55c1-bc68-4a92-8eda-3bedeaa6e672"),Map.of()));
         Task saved = taskManager.getTasks().values().iterator().next();
 
         String json = """
