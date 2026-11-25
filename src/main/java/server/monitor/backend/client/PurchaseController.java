@@ -2,8 +2,8 @@ package server.monitor.backend.client;
 
 import org.springframework.web.bind.annotation.*;
 import server.monitor.backend.Printer;
-import server.monitor.backend.db.claims.ClaimRequest;
-import server.monitor.backend.db.claims.ClaimResponse;
+import server.monitor.backend.services.ClaimRequest;
+import server.monitor.backend.services.ClaimResponse;
 import server.monitor.backend.services.ClaimService;
 import server.monitor.backend.task.TaskManager;
 

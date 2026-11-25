@@ -6,8 +6,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 import server.monitor.backend.client.PurchaseController;
-import server.monitor.backend.db.claims.ClaimRequest;
-import server.monitor.backend.db.claims.ClaimResponse;
 import server.monitor.backend.db.purchases.Purchase;
 import server.monitor.backend.db.purchases.PurchaseRepository;
 import server.monitor.backend.db.users.User;

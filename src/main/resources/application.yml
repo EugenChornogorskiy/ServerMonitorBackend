@@ -16,6 +16,7 @@ logging:
     server.monitor.backend: info
 server-monitor:
     http-key: "mykey"
+    ttl: 30
 server:
   port: 3001
 claim:

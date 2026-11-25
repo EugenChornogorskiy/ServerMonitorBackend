@@ -10,6 +10,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import server.monitor.backend.client.PurchaseController;
 import server.monitor.backend.db.purchases.PurchaseRepository;
 import server.monitor.backend.db.users.UserRepository;
+import server.monitor.backend.player.Players;
 import server.monitor.backend.services.ClaimService;
 import server.monitor.backend.task.TaskManager;
 
@@ -28,6 +29,9 @@ class PurchaseControllerTest {
 
     @MockitoBean
     private PurchaseRepository purchaseRepository;
+
+    @MockitoBean
+    private Players players;
 
     @MockitoBean
     private ClaimService claimService;

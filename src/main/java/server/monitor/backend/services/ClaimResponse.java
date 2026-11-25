@@ -1,6 +1,4 @@
-package server.monitor.backend.db.claims;
-
-import server.monitor.backend.services.ClaimService;
+package server.monitor.backend.services;
 
 import java.util.List;
 

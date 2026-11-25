@@ -1,4 +1,4 @@
-package server.monitor.backend.db.claims;
+package server.monitor.backend.services;
 
 import java.util.UUID;
 

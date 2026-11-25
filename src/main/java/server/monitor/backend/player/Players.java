@@ -1,22 +1,29 @@
 package server.monitor.backend.player;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import java.time.Duration;
+import java.time.Instant;
 import java.util.*;
 
 @Component
 public class Players {
-    private static List<Player> players = Collections.synchronizedList(new ArrayList<>());
-
-    public static List<Player> getPlayers() {
-        return List.copyOf(players);
+    private final Duration TTL;
+    private List<Player> players =new ArrayList<>();
+    private volatile Instant lastUpdate = Instant.EPOCH;
+    public Players(@Value("server-monitor.ttl") int ttl){
+        this.TTL = Duration.ofSeconds(ttl);
+    }
+    public List<Player> getPlayers() {
+        return isAlive() ?  List.copyOf(players) : List.of();
     }
 
-    public static void convert(Map<UUID, Player> body) {
-        List<Player> converted = new ArrayList<>();
-        for(Map.Entry<UUID,Player> mapa : body.entrySet()) {
-            converted.add(mapa.getValue());
-        }
-        Players.players = converted;
+    public void convert(Map<UUID, Player> body) {
+        players = List.copyOf(body.values());
+        lastUpdate = Instant.now();
+    }
+    private boolean isAlive() {
+        return Duration.between(lastUpdate, Instant.now()).compareTo(TTL) < 0;
     }
 }

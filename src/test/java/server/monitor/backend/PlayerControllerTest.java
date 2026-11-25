@@ -3,24 +3,25 @@ package server.monitor.backend;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
 import org.springframework.context.annotation.Import;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.web.server.ResponseStatusException;
 import server.monitor.backend.client.PlayerController;
 import server.monitor.backend.db.purchases.PurchaseRepository;
 import server.monitor.backend.db.users.User;
 import server.monitor.backend.db.users.UserRepository;
-import server.monitor.backend.player.Player;
 import server.monitor.backend.player.Players;
+import server.monitor.backend.services.PlayerService;
 import server.monitor.backend.task.TaskManager;
 
 import java.util.Optional;
@@ -36,6 +37,12 @@ class PlayerControllerTest {
 
     @MockitoBean
     private PurchaseRepository purchaseRepository;
+
+    @MockitoBean
+    private PlayerService playerService;
+
+    @MockitoBean
+    private Players players;
 
     @Autowired
     private MockMvc mvc;
@@ -68,13 +75,6 @@ class PlayerControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(json))
                 .andExpect(status().isOk());
-        Player p = Players.getPlayers().getFirst();
-        assertAll(
-                () -> assertEquals(1, Players.getPlayers().size()),
-                () -> assertEquals("Riven1777", p.nickname()),
-                () -> assertEquals(1, p.deaths()),
-                () -> assertEquals(0, p.kills())
-        );
     }
     @Test
     void authorizeUnknownPlayer() throws Exception {
@@ -87,11 +87,12 @@ class PlayerControllerTest {
                 }
                 """;
 
+        doThrow(new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"))
+                .when(playerService).authorizePlayer(new PlayerController.AuthorizePlayer(UUID.fromString("ebeb55c1-bc68-4a92-8eda-3bedeaa6e676"),"1111"));
         mvc.perform(post("/api/player/authorize")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(json))
-                .andExpect(status().isOk())
-                .andExpect(content().string("false"));
+                .andExpect(status().isNotFound());
     }
     @Test
     void authorizePlayerSuccess() throws Exception {
@@ -106,7 +107,6 @@ class PlayerControllerTest {
         mvc.perform(post("/api/player/authorize")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(json))
-                .andExpect(status().isOk())
-                .andExpect(content().string("true"));
+                .andExpect(status().isOk());
     }
 }

@@ -5,7 +5,6 @@ import server.monitor.backend.db.products.Product;
 import server.monitor.backend.db.users.User;
 
 import java.time.Instant;
-import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "purchases")

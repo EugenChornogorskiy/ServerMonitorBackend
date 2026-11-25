@@ -11,6 +11,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import server.monitor.backend.client.TaskController;
 import server.monitor.backend.db.purchases.PurchaseRepository;
 import server.monitor.backend.db.users.UserRepository;
+import server.monitor.backend.player.Players;
 import server.monitor.backend.task.Task;
 import server.monitor.backend.task.TaskManager;
 
@@ -30,6 +31,9 @@ class TaskControllerTest {
 
     @MockitoBean
     private PurchaseRepository purchaseRepository;
+
+    @MockitoBean
+    private Players players;
 
     @Autowired
     private MockMvc mvc;
