@@ -7,7 +7,7 @@ import server.monitor.backend.db.purchases.Purchase;
 
 import java.util.Optional;
 
-public interface PrivilageRepository extends JpaRepository<Purchase, Long> {
+public interface PrivilegeRepository extends JpaRepository<Privilege, Long> {
     @Lock(LockModeType.PESSIMISTIC_WRITE)
     Optional<Purchase> findByUserIdAndCode(long id, String code);
 }

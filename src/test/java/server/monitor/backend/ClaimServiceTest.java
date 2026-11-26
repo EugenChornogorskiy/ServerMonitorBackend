@@ -6,6 +6,9 @@ import org.mockito.Mockito;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
 import server.monitor.backend.client.PurchaseController;
+import server.monitor.backend.db.privileges.Privilege;
+import server.monitor.backend.db.productItems.ProductItem;
+import server.monitor.backend.db.productPrivilege.ProductPrivilege;
 import server.monitor.backend.services.ClaimRequest;
 import server.monitor.backend.services.ClaimResponse;
 import server.monitor.backend.db.items.Item;
@@ -16,6 +19,7 @@ import server.monitor.backend.db.users.User;
 import server.monitor.backend.db.users.UserRepository;
 import server.monitor.backend.services.ClaimService;
 
+import java.time.Duration;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
@@ -33,15 +37,19 @@ public class ClaimServiceTest {
     private PurchaseRepository purchaseRepository;
     private ClaimService claimService;
     private final User user = new User(1L,UUID.randomUUID(),0L,"Riven","player@email.com","1111");
-    private final Item item = new Item(1L,null,"DIAMOND_SWORD",1,"sword","diamond sword");
-    private final Product product = new Product(1L,user,List.of(item),100L);
+    private final Item item = new Item(1L,"DIAMOND_SWORD","sword","diamond sword");
+    private final Privilege privilege = new Privilege(1L,"Premium","premium role", Privilege.PrivilegeType.PREMIUM);
+    private final ProductPrivilege productPrivilege = new ProductPrivilege(Duration.ofDays(30),privilege,null,new ProductItem.Key(1L,1L));
+    private final ProductItem productItem = new ProductItem(new ProductItem.Key(1L,1L),null,item,1);
+    private final Product product = new Product(1L,user,List.of(productItem),100L,List.of(productPrivilege));
 
     @BeforeEach
     void setUp() {
         userRepository = Mockito.mock(UserRepository.class);
         purchaseRepository = Mockito.mock(PurchaseRepository.class);
         claimService = new ClaimService(userRepository, purchaseRepository, 5L);
-        item.setProduct(product);
+        productPrivilege.setProduct(product);
+        productItem.setProduct(product);
     }
 
     @Test
@@ -110,7 +118,7 @@ public class ClaimServiceTest {
 
         ClaimResponse claimResponse = claimService.claim(claimRequest) ;
 
-        assertEquals(List.of(new ClaimService.ItemToSend(item.getMaterial(),item.getAmount())),claimResponse.items() );
+        assertEquals(List.of(new ClaimService.ItemToSend(item.getMaterial(),productItem.getAmount())),claimResponse.items() );
         assertEquals(1L,claimResponse.id() );
 
     }
@@ -124,7 +132,7 @@ public class ClaimServiceTest {
 
         ClaimResponse claimResponse = claimService.claim(claimRequest) ;
 
-        assertEquals(List.of(new ClaimService.ItemToSend(item.getMaterial(),item.getAmount())),claimResponse.items() );
+        assertEquals(List.of(new ClaimService.ItemToSend(item.getMaterial(),productItem.getAmount())),claimResponse.items() );
         assertEquals(1L,claimResponse.id() );
 
     }
@@ -138,7 +146,7 @@ public class ClaimServiceTest {
 
         ClaimResponse claimResponse = claimService.claim(claimRequest) ;
 
-        assertEquals(List.of(new ClaimService.ItemToSend(item.getMaterial(),item.getAmount())),claimResponse.items() );
+        assertEquals(List.of(new ClaimService.ItemToSend(item.getMaterial(),productItem.getAmount())),claimResponse.items() );
         assertEquals(1L,claimResponse.id() );
 
     }

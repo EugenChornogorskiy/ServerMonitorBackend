@@ -10,21 +10,13 @@ public class Item {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "product_id")
-    private Product product;
-
     private String material;
-    private int amount;
     private String description;
     private String item_name;
 
-    public Item(Long id, Product product, String material, int amount, String description, String item_name) {
+    public Item(Long id, String material,String description, String item_name) {
         this.id = id;
-        this.product = product;
         this.material = material;
-        this.amount = amount;
         this.description = description;
         this.item_name = item_name;
     }
@@ -37,15 +29,7 @@ public class Item {
         this.id = id;
     }
 
-    public void setProduct(Product product) {
-        this.product = product;
-    }
-
     public String getMaterial() {
         return material;
-    }
-
-    public int getAmount() {
-        return amount;
     }
 }

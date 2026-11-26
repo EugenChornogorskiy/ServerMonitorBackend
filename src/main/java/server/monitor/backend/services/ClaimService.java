@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 import server.monitor.backend.client.PurchaseController;
+import server.monitor.backend.db.privileges.Privilege;
 import server.monitor.backend.db.purchases.Purchase;
 import server.monitor.backend.db.purchases.PurchaseRepository;
 import server.monitor.backend.db.users.User;
@@ -43,10 +44,16 @@ public class ClaimService {
             }
         }
 
-        List<ItemToSend> items = purchase.getProduct().getItems().stream().map(i -> new ItemToSend(i.getMaterial(),i.getAmount())).toList();
+        List<ItemToSend> items = purchase.getProduct().getItems().stream()
+                .map(pi -> new ItemToSend(pi.getItem().getMaterial(), pi.getAmount()))
+                .toList();
+        List<PrivilegeToSend> privileges = purchase.getProduct().getPrivileges().stream()
+                .map(pp -> new PrivilegeToSend(pp.getPrivilege().getType(),pp.getDurationDays()))
+                .toList();
+
         purchase.setClaimed_at(Instant.now());
         purchaseRepository.save(purchase);
-        return new ClaimResponse(purchase.getId(),items);
+        return new ClaimResponse(purchase.getId(),items, privileges);
     }
     public void close(PurchaseController.ClosePurchase closePurchase) {
         Purchase purchase = purchaseRepository.findById(closePurchase.id())
@@ -61,4 +68,7 @@ public class ClaimService {
         }
     }
     public record ItemToSend(String material, int amount) {}
+    public record PrivilegeToSend(Privilege.PrivilegeType type, Duration duration) {
+
+    }
 }
